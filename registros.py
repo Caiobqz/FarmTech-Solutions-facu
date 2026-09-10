@@ -28,6 +28,7 @@ def cadastrar_dados():
     dados.append(registro)
     print(f"\nÁrea de plantio: {registro['area_m2']:.2f} m²")
     print(f"Área de plantio: {registro['area_hectares']:.4f} hectares")
+    print(f"Produto utilizado: {registro['produto']}")
     print(f"Insumo necessário: {registro['insumo_total']:.2f} {registro['unidade']}")
     print("\nCadastro realizado com sucesso.")
 
@@ -45,6 +46,7 @@ def visualizar_dados():
         print(f"Cultura: {dado['cultura']}")
         print(f"Área: {dado['area_m2']:.2f} m²")
         print(f"Área: {dado['area_hectares']:.4f} hectares")
+        print(f"Produto utilizado: {dado['produto']}")
         print(f"Insumo necessário: {dado['insumo_total']:.2f} {dado['unidade']}")
 
         if dado["cultura"] == "soja":
