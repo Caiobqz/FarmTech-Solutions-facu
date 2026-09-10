@@ -12,12 +12,47 @@ O sistema realiza:
 - Visualização
 - Atualização
 - Exclusão
+- Exportação dos dados para CSV
 """
 
 import math
+import csv
 
 # Lista que armazena os registros cadastrados durante a execução do programa.
 dados = []
+
+
+def exportar_csv():
+    """Exporta todos os registros cadastrados para um arquivo CSV."""
+    if not dados:
+        print("\nNenhum dado disponível para exportar.")
+        return
+
+    # Campos comuns às duas culturas e úteis para a análise em R.
+    campos = [
+        "nome",
+        "cultura",
+        "area_m2",
+        "area_hectares",
+        "insumo_total",
+        "unidade",
+    ]
+
+    # Soja e café possuem informações específicas diferentes.
+    # Percorremos todos os registros para incluir todas as colunas existentes.
+    for dado in dados:
+        for chave in dado.keys():
+            if chave not in campos:
+                campos.append(chave)
+
+    with open("dados_fazendas.csv", "w", newline="", encoding="utf-8") as arquivo:
+        escritor = csv.DictWriter(arquivo, fieldnames=campos)
+        escritor.writeheader()
+
+        for dado in dados:
+            escritor.writerow(dado)
+
+    print("\nDados exportados para dados_fazendas.csv com sucesso.")
 
 
 def ler_numero_positivo(mensagem):
@@ -123,7 +158,6 @@ def cadastrar_dados():
     if calculos is None:
         return
 
-    # Junta os dados de identificação aos valores calculados.
     registro = {
         "nome": nome,
         "cultura": cultura,
@@ -159,7 +193,6 @@ def visualizar_dados():
             f"{dado['insumo_total']:.2f} {dado['unidade']}"
         )
 
-        # Mostra também os valores que deram origem aos cálculos.
         if dado["cultura"] == "soja":
             print(f"Comprimento: {dado['comprimento']:.2f} m")
             print(f"Largura: {dado['largura']:.2f} m")
@@ -193,8 +226,6 @@ def atualizar_dados():
     nome = input("Digite o novo nome da fazenda: ").strip()
     cultura = input("Digite a nova cultura (soja/café): ").strip().lower()
 
-    # Usa a mesma função do cadastro para evitar cálculos diferentes
-    # entre cadastrar e atualizar um registro.
     calculos = calcular_cultura(cultura)
     if calculos is None:
         return
@@ -236,12 +267,13 @@ def executar_menu():
         print("2 - Visualizar dados")
         print("3 - Atualizar dados")
         print("4 - Excluir dados")
-        print("5 - Sair")
+        print("5 - Exportar dados para CSV")
+        print("6 - Sair")
 
         try:
             opcao = int(input("Escolha uma opção: "))
         except ValueError:
-            print("Opção inválida. Digite um número de 1 a 5.")
+            print("Opção inválida. Digite um número de 1 a 6.")
             continue
 
         if opcao == 1:
@@ -253,10 +285,12 @@ def executar_menu():
         elif opcao == 4:
             excluir_dados()
         elif opcao == 5:
+            exportar_csv()
+        elif opcao == 6:
             print("Programa encerrado.")
             break
         else:
-            print("Opção inválida. Escolha uma opção de 1 a 5.")
+            print("Opção inválida. Escolha uma opção de 1 a 6.")
 
 
 executar_menu()
