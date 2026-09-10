@@ -5,6 +5,15 @@ import math
 from validacoes import ler_inteiro_positivo, ler_numero_positivo
 
 
+def ler_produto(mensagem):
+    """Lê o nome do produto utilizado no manejo."""
+    while True:
+        produto = input(mensagem).strip()
+        if produto:
+            return produto
+        print("Digite o nome do produto utilizado.")
+
+
 def calcular_soja():
     """Calcula área retangular e fertilizante necessário para soja."""
     print("\n--- Cálculo da área da soja ---")
@@ -13,6 +22,7 @@ def calcular_soja():
 
     area_m2 = comprimento * largura
     area_hectares = area_m2 / 10000
+    produto = ler_produto("Digite o nome do fertilizante utilizado: ")
     fertilizante_por_hectare = ler_numero_positivo(
         "Quantidade de fertilizante utilizada por hectare (kg): "
     )
@@ -20,8 +30,9 @@ def calcular_soja():
     return {
         "area_m2": area_m2,
         "area_hectares": area_hectares,
+        "produto": produto,
         "insumo_total": area_hectares * fertilizante_por_hectare,
-        "unidade": "kg de fertilizante",
+        "unidade": "kg",
         "comprimento": comprimento,
         "largura": largura,
         "fertilizante_por_hectare": fertilizante_por_hectare,
@@ -35,6 +46,7 @@ def calcular_cafe():
     area_m2 = math.pi * raio ** 2
     area_hectares = area_m2 / 10000
 
+    produto = ler_produto("Digite o nome do produto utilizado no manejo: ")
     numero_ruas = ler_inteiro_positivo("Digite o número de ruas da lavoura: ")
     comprimento_rua = ler_numero_positivo(
         "Digite o comprimento de cada rua em metros: "
@@ -48,8 +60,9 @@ def calcular_cafe():
     return {
         "area_m2": area_m2,
         "area_hectares": area_hectares,
+        "produto": produto,
         "insumo_total": total_ml / 1000,
-        "unidade": "litros de produto",
+        "unidade": "litros",
         "raio": raio,
         "numero_ruas": numero_ruas,
         "comprimento_rua": comprimento_rua,
