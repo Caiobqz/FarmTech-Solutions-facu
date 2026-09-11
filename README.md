@@ -2,6 +2,13 @@
 
 Projeto acadêmico desenvolvido para a atividade da FIAP, aplicando programação e análise de dados a um cenário de Agricultura Digital.
 
+## Integrantes
+
+- Caio Barros Queiroz
+- Suellen Hellen Pereira Silva
+- Paulo Vitor Isidoro Silva
+- Kauê Cavalcanti Araujo
+
 ## Culturas atendidas
 
 - Soja
@@ -109,4 +116,4 @@ Além dos códigos, a entrega final da atividade deverá incluir o resumo solici
 
 ## Status
 
-Python, exportação CSV e análise estatística em R implementados. Consulta meteorológica em R adicionada e pendente de validação no ambiente final antes da entrega.
+Python, exportação CSV, análise estatística em R e consulta meteorológica em R implementados e testados.
